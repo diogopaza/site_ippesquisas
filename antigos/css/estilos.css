@@ -1,0 +1,80 @@
+#header-logo{
+	font-size: 40px;
+}
+
+.mini-perfil{
+	width: 37px;
+	margin-top: 12px;
+	
+}
+
+#dropdown-perfil{
+	top:63px !important;
+}
+
+.parallax-title{
+	margin-top: 160px;
+}
+
+.imagem-card{
+
+	width: 100%;
+
+}
+
+.no-space-row{
+
+	
+}
+
+.add-btn-flt{
+	position: relative;
+	float: right;
+	top: -18px;
+	right: 10%;
+}
+
+.imagem-card{
+
+	max-width: 100%;
+	width: 350px;
+	height: 250px;
+	object-fit: cover;
+}
+
+.botao{
+
+	margin-bottom: 15px;
+}
+
+.principal{
+
+	background-color: #DDD;
+}
+
+.barra{
+	opacity: 0.2;
+}
+
+.localizacao:{
+	border:10px solid;
+}
+
+.texto:{
+	font-size: 84px;
+	background-color: 'blue';
+	
+}
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.sidenav-trigger {
+  color: #26a69a;
+}
