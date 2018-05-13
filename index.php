@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,13 +120,14 @@ h6 {
           <li class="nav-item">
             <a class="nav-link" id="linkContatos">Contato</a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" id="linkContatos" data-toggle="modal" data-target="#modalSubscriptionForm">Login</a>
+              
+            </li>
+          
+          
         </ul>
-        <form class="form-inline">
-          <div class="md-form mt-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          </div>
-        </form>
-      </div>
+        
     </div>
   </nav>
   <!-- Full Page Intro -->
@@ -323,7 +325,45 @@ h6 {
 
 </footer>
 <!--/Footer-->
-                      
+                
+  
+<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Subscribe</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form3">Your name</label>
+                </div>
+
+                <div class="md-form mb-4">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="email" id="form2" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form2">Your email</label>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-indigo">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                
+       
+                                        
+
+
+
 
 </body>
 </html>
