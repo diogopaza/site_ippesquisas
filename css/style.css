@@ -1,1 +1,12 @@
-/* Your custom styles */
+.formEstados{
+	border:solid 1px black; 
+	width: 50%;
+	margin: 25px auto;
+}
+
+#formCidades{
+	border: solid 1px black;
+	width: 50%;
+	margin: 25px auto;
+}
+
