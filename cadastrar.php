@@ -48,21 +48,30 @@ if(isset($_POST['uploadCidades']) ){
     function gravarCidade(){
        $banco = new Conectar();
         $conexao =  $banco->conectarDB();
-
+        
+       
 
         $target = "images/".$_FILES['image']['name'];
         $image = $_FILES['image']['name'];
 
        
-        $nome_cidade = $_POST['nomeCidade'];
+        $nome_cidade = $_POST['nome_cidade'];
         $bandeira = $target;
         $descricao = $_POST['descricao_cidade'];
         $estado =  $_POST['estado'];
+
+         echo "Descrição: ".$_POST['descricao_cidade']."<br>";
+         echo "Estado: ".$_POST['estado']."<br>";
+          echo "Bandeira: ".$target."<br>";
+           echo "nome cidade: ".$_POST['nome_cidade']."<br>";
+
         
         $stmt = $conexao->prepare("INSERT INTO cidade(nome_cidade,bandeira_cidade,descricao_cidade,estado) VALUES(:nome, :bandeira,:descricao,:estado)");
 
-        $stmt->bindParam(':nome', $nome_curso);
+        $stmt->bindParam(':nome', $nome_cidade);
         $stmt->bindParam(':bandeira',$bandeira);
+        $stmt->bindParam(':descricao',$descricao);
+        $stmt->bindParam(':estado',$estado);
         $stmt->execute();
        
 
@@ -78,7 +87,7 @@ if(isset($_POST['uploadCidades']) ){
 
 
 
-    gravarEstado();
+    gravarCidade();
 
 }
 
@@ -127,13 +136,13 @@ if(isset($_POST['uploadCidades']) ){
                         <input type="file" name="image" multiple >
                     </div>
                     <div>
-                        <input name="nomeCidade" type="text" placeholder="Digite o nome da cidade">
+                        <input name="nome_cidade" type="text" placeholder="Digite o nome da cidade">
                     </div>
                      <div>
                         <textarea rows="10" cols="10" placeholder="descrição" name="descricao_cidade"></textarea>
                     </div>
                      <div>
-                        <input name="estadoCidade" type="text" placeholder="Digite estado">
+                        <input name="estado" type="text" placeholder="Digite estado">
                     </div>
             
             

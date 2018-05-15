@@ -68,7 +68,7 @@
                                     
                                     </div>
                                 <div class='card-action wow '>
-                                <a href='#' class='card-title linkEstados' onclick='teste(this)' id='".$row['id']."'>".$row['nome_estado']."</a>
+                                <a  class='card-title linkEstados' onclick='teste(this)' id='".$row['id']."'>".$row['nome_estado']."</a>
                                 
                             </div>
                             

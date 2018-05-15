@@ -10,7 +10,7 @@
             $result = $conexao->query($sql);
             
            	foreach ($result as $row) {
-           		echo $row['id_cidade'].' - '.$row['nome_cidade'];
+           		echo $row['id_cidade'].' - '.$row['nome_cidade']."<br /><img src='".$row['bandeira_cidade']."'>";
            	}
 
     $conn = null;
