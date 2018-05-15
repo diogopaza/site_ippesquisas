@@ -115,7 +115,7 @@ h6 {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="clientes.html">Clientes</a>
+            <a class="nav-link" href="clientes.php">Clientes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="linkContatos">Contato</a>

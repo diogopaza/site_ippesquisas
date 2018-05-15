@@ -5,9 +5,9 @@ class Conectar{
 
 	 function conectarDB(){
         try{
-            $conn = new PDO("mysql:host=localhost;dbname=escola", "root", ""); 
+            $conn = new PDO("mysql:host=localhost;dbname=site_up;charset=utf8", "root", ""); 
             return $conn;
-            echo"conectou";
+           
 
         }
         catch(PDOException $e)

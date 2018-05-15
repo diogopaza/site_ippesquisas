@@ -1,23 +1,15 @@
 <?php
 
+require('conectar.php');
+
 if(isset($_POST['upload']) ){
-    function conectarDB(){
-        try{
-            $conn = new PDO("mysql:host=localhost;dbname=escola", "root", ""); 
-            return $conn;
-            echo"conectou";
+   
 
-        }
-        catch(PDOException $e)
-            {
-                echo "Conexão falhou: " . $e->getMessage();
-            }
-       
-
-    }
 
     function gravarImagem(){
-        $conexao = conectarDB();
+       $banco = new Conectar();
+        $conexao =  $banco->conectarDB();
+
 
         $target = "images/".$_FILES['image']['name'];
         $image = $_FILES['image']['name'];
@@ -25,12 +17,11 @@ if(isset($_POST['upload']) ){
        
         $nome_curso = $_POST['nomeCurso'];
         $bandeira = $target;
-        $ano = 2019;
-        $stmt = $conexao->prepare("INSERT INTO curso(nome_curso, descricao_curso, ano_curso) VALUES(:nome, :descricao, :ano)");
+        
+        $stmt = $conexao->prepare("INSERT INTO estados(nome_estado,bandeira_estado) VALUES(:nome, :bandeira)");
 
         $stmt->bindParam(':nome', $nome_curso);
-        $stmt->bindParam(':descricao',$bandeira);
-        $stmt->bindParam(':ano',$ano);
+        $stmt->bindParam(':bandeira',$bandeira);
         $stmt->execute();
        
 
@@ -57,28 +48,36 @@ if(isset($_POST['upload']) ){
 
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <form enctype="multipart/form-data" action="cadastrar.php" method="POST" >
 
 
-<form enctype="multipart/form-data" action="cadastrar.php" method="POST" >
+        <div>
+            <input type="file" name="image" multiple >
+        </div>
+        <div>
+            <input name="nomeCurso" type="text" placeholder="Digite o nome do curso"></input>
+        </div>
 
 
-<div>
-    <input type="file" name="image" multiple >
-</div>
-<div>
-    <input name="nomeCurso" type="text" placeholder="Digite o nome do curso"></input>
-</div>
-
-
-<div>
-    <input type="submit" name="upload" value="Upload Image" />
-</div>
-<div>
-    <a href="percorrer.php">Listar cursos</a>
-</div>
+        <div>
+            <input type="submit" name="upload" value="Upload Image" />
+        </div>
+        <div>
+            <a href="percorrer.php">Listar cursos</a>
+        </div>
 
 
 
 
 
 </form>
+</body>
+</html>
+

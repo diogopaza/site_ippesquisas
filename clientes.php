@@ -55,20 +55,20 @@
              <div id="conteudo">
                  <?php
                    
-                    $result = $conn->query("SELECT * FROM curso");
+                    $result = $conn->query("SELECT * FROM estados");
                     foreach ($result as $row) {
                         echo "
                             <div class='col  m4 s12'>
                                 <div class='card hoverable wow bounceInLeft' data-wow-delay='1s'>
                                     <div class='card-image'>
                            
-                                        <img src='".$row['descricao_curso']."' class='imagem-card'>"."
+                                        <img src='".$row['bandeira_estado']."' class='imagem-card'>"."
                                         
                                        
                                     
                                     </div>
                                 <div class='card-action wow '>
-                                <a href='#' class='card-title linkEstados' onclick='teste(this)' id='".$row['nome_curso']."'>".$row['nome_curso']."</a>
+                                <a href='#' class='card-title linkEstados' onclick='teste(this)' id='".$row['id']."'>".$row['nome_estado']."</a>
                                 
                             </div>
                             
