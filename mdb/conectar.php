@@ -1,9 +1,8 @@
 <?php
 
 class Conectar{
-
-
-	 function conectarDB(){
+		
+	function conectarDB(){
         try{
             $conn = new PDO("mysql:host=localhost;dbname=escola", "root", ""); 
             return $conn;
@@ -18,17 +17,7 @@ class Conectar{
 
     }
 
-
-
 }
 
-
- 
-                               
-                               
-                              
-
-
-                          
 
 ?>

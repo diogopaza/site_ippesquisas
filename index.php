@@ -121,7 +121,11 @@ h6 {
             <a class="nav-link" id="linkContatos">Contato</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" id="linkContatos" data-toggle="modal" data-target="#modalSubscriptionForm">Login</a>
+              <a class="nav-link" id="linkContatos" data-toggle="modal" data-target="#modalSubscriptionForm">LoginModal</a>
+              
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" id="administrador.php">Login</a>
               
             </li>
           
