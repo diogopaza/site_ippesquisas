@@ -122,14 +122,29 @@
     }
 
     function retornarClientes(){
+      if(window.XMLHttpRequest){
+           xmlhttp = new XMLHttpRequest();
+        }
+      xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                console.log('status ok');
+               
+                document.getElementById('conteudo').innerHTML = this.responseText;
+                console.log('executei innerHTML');
 
+            }
+        }
+
+         xmlhttp.open("GET","retornaClientes.php",true);
+         xmlhttp.send();
 
       
 
 
-
    } 
  
+
+    
  
    
 </script>

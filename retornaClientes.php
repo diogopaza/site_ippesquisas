@@ -1,6 +1,15 @@
 <?php
 
-	echo 'retornando clientes';
+	require('conectar.php');
+	$banco = new Conectar();
+	$conexao =  $banco->conectarDB();
+
+	$
+
+
+
+
+
 
 
 ?>

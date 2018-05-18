@@ -99,16 +99,16 @@ if(isset($_POST['uploadClientes']) ){
         
        
 
-        $target = "images/".$_FILES['image']['name'];
-        $image = $_FILES['image']['name'];       
-        $nome_cidade = $_POST['nome_cidade'];
-        $bandeira = $target;        
-        $cidade =  $_POST['select_cidades'];
+        $nomeCliente = $_POST['nome_cliente'];
+        $telefoneCliente = $_POST['telefone_cliente'];
+        $nomeCidade =  $_POST['select_cidades'];
+
+        echo "Nome: ".$nomeCliente."<br>";
+        echo "Telefone: ".$telefoneCliente."<br>";
+        echo "Cidade: ".$nomeCidade;
 
         
-
-        
-        $stmt = $conexao->prepare("INSERT INTO cidade(nome_cidade,bandeira_cidade,estado) VALUES(:nome, :bandeira,:estado)");
+        $stmt = $conexao->prepare("INSERT INTO cidades(nome_cidade,bandeira_cidade,estado) VALUES(:nome, :bandeira,:estado)");
 
         $stmt->bindParam(':nome', $nome_cidade);
         $stmt->bindParam(':bandeira',$bandeira);
@@ -127,15 +127,52 @@ if(isset($_POST['uploadClientes']) ){
 
     }
 
-    function teste(){
+    function gravarImagem(){
+        $banco = new Conectar();
+        $conexao =  $banco->conectarDB();
         for ($i=0; $i<count( $_FILES["image"]["name"] ); $i++) { 
-           echo $imagem = $_FILES['image']['name'][$i]."<br>";
+          
+            $local = 'images/'.$_FILES['image']['name'][$i];
+            $tmpname = $_FILES['image']['tmp_name'][$i];
+            echo $local."<br>";
+            echo $tmpname."<br>";
+
+             if(move_uploaded_file($tmpname, $local)){
+                        
+                    try{
+                        $stmt = $conexao->prepare("INSERT INTO img(local_img) VALUES(:local)");
+                      
+                        $stmt->bindParam(':local', $local);
+                       
+                        $stmt->execute();
+                        echo "Último id inserido: ".$conexao->lastInsertId();
+
+
+                    }
+                    catch(PDOException $e){
+
+                         echo 'Não foi possível gravar no banco de dados';
+                    }            
+                    
+                    
+
+                    }else{
+                        echo 'Não foi possível gravar a imagem na pasta selecionada';
+                    }
+
+
         }
+
+        
+            
+               
        
         
     }
 
-    teste();
+    gravarCliente();
+
+    
 
   
    
@@ -224,15 +261,10 @@ if(isset($_POST['uploadClientes']) ){
                     <div>
                         <textarea rows="10" cols="6"></textarea>
                     </div>
-                     <div class="selectEstados">
-                        
-                        
-                    </div>
+                     
                      
                      <div id="selectCidades">
-                        <select>
-                            <option></option>
-                        </select>
+                       
                     </div>
             
             
