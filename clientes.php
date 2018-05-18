@@ -33,10 +33,9 @@
 	<header class="container-fluid ">
  <nav class="white" role="navigation">
     <div class="nav-fixed container">
-      <a id="logo-container" href="index.html" class="brand-logo">UP Pesquisas & Publicidade</a>
+      <a id="logo-container" href="index.php" class="brand-logo center">UP Pesquisas & Publicidade</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="clientes.html">Clientes</a></li>
-        <li><a href="#">Contato</a></li>
+        
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
@@ -48,11 +47,12 @@
 </header>
 
     <main>
-        <h5>Clientes</h5>
+        <h5 class="local">Clientes</h5>
          <div class="container"> 
           <div class="row section no-space-row">
           
              <div id="conteudo">
+                
                  <?php
                    
                     $result = $conn->query("SELECT * FROM estados");
@@ -68,7 +68,7 @@
                                     
                                     </div>
                                 <div class='card-action wow '>
-                                <a  class='card-title linkEstados' onclick='teste(this)' id='".$row['id']."'>".$row['nome_estado']."</a>
+                                <a  class='card-title linkEstados' onclick='retornarCidades(this)' id='".$row['id']."'>".$row['nome_estado']."</a>
                                 
                             </div>
                             
@@ -101,7 +101,7 @@
 <script type="text/javascript">
     
 
-    function teste(elemento){
+    function retornarCidades(elemento){
         console.log(elemento.id);
         if(window.XMLHttpRequest){
            xmlhttp = new XMLHttpRequest();
@@ -116,10 +116,19 @@
             }
         }
 
-         xmlhttp.open("POST","cidades.php",true);
+         xmlhttp.open("GET","cidades.php?q="+elemento.id,true);
          xmlhttp.send();
 
     }
+
+    function retornarClientes(){
+
+
+      
+
+
+
+   } 
  
  
    

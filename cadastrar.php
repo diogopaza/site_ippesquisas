@@ -57,20 +57,17 @@ if(isset($_POST['uploadCidades']) ){
        
         $nome_cidade = $_POST['nome_cidade'];
         $bandeira = $target;
-        $descricao = $_POST['descricao_cidade'];
-        $estado =  $_POST['estado'];
-
-         echo "Descrição: ".$_POST['descricao_cidade']."<br>";
-         echo "Estado: ".$_POST['estado']."<br>";
-          echo "Bandeira: ".$target."<br>";
-           echo "nome cidade: ".$_POST['nome_cidade']."<br>";
+        
+        $estado =  $_POST['select_estados'];
 
         
-        $stmt = $conexao->prepare("INSERT INTO cidade(nome_cidade,bandeira_cidade,descricao_cidade,estado) VALUES(:nome, :bandeira,:descricao,:estado)");
+
+        
+        $stmt = $conexao->prepare("INSERT INTO cidade(nome_cidade,bandeira_cidade,estado) VALUES(:nome, :bandeira,:estado)");
 
         $stmt->bindParam(':nome', $nome_cidade);
         $stmt->bindParam(':bandeira',$bandeira);
-        $stmt->bindParam(':descricao',$descricao);
+       
         $stmt->bindParam(':estado',$estado);
         $stmt->execute();
        
@@ -85,9 +82,64 @@ if(isset($_POST['uploadCidades']) ){
 
     }
 
-
-
+  
+   
     gravarCidade();
+
+}
+
+
+if(isset($_POST['uploadClientes']) ){
+   
+
+
+    function gravarCliente(){
+       $banco = new Conectar();
+        $conexao =  $banco->conectarDB();
+        
+       
+
+        $target = "images/".$_FILES['image']['name'];
+        $image = $_FILES['image']['name'];       
+        $nome_cidade = $_POST['nome_cidade'];
+        $bandeira = $target;        
+        $cidade =  $_POST['select_cidades'];
+
+        
+
+        
+        $stmt = $conexao->prepare("INSERT INTO cidade(nome_cidade,bandeira_cidade,estado) VALUES(:nome, :bandeira,:estado)");
+
+        $stmt->bindParam(':nome', $nome_cidade);
+        $stmt->bindParam(':bandeira',$bandeira);
+       
+        $stmt->bindParam(':estado',$estado);
+        $stmt->execute();
+       
+
+
+
+        if(move_uploaded_file($_FILES['image']['tmp_name'], $target)){
+            $msg = "imagem uploaded suessfully";
+        }else{
+            $msg = "There was a problem uploading image";
+        }
+
+    }
+
+    function teste(){
+        for ($i=0; $i<count( $_FILES["image"]["name"] ); $i++) { 
+           echo $imagem = $_FILES['image']['name'][$i]."<br>";
+        }
+       
+        
+    }
+
+    teste();
+
+  
+   
+  
 
 }
 
@@ -138,11 +190,9 @@ if(isset($_POST['uploadCidades']) ){
                     <div>
                         <input name="nome_cidade" type="text" placeholder="Digite o nome da cidade">
                     </div>
-                     <div>
-                        <textarea rows="10" cols="10" placeholder="descrição" name="descricao_cidade"></textarea>
-                    </div>
-                     <div>
-                        <input name="estado" type="text" placeholder="Digite estado">
+                     
+                     <div class="selectEstados">
+                        
                     </div>
             
             
@@ -158,6 +208,116 @@ if(isset($_POST['uploadCidades']) ){
         
 
 </form>
+
+<form enctype="multipart/form-data" action="cadastrar.php" method="POST" id="estiloClientes">
+      
+            <h3>Cadastrar Cliente</h3>
+                    <div>
+                        <input type="file" name="image[]" multiple >
+                    </div>
+                    <div>
+                        <input name="nome_cliente" type="text" placeholder="Digite o nome do cliente">
+                    </div>
+                     <div>
+                        <input name="telefone_cliente" type="text" placeholder="Digite o telefone do  cliente">
+                    </div>
+                    <div>
+                        <textarea rows="10" cols="6"></textarea>
+                    </div>
+                     <div class="selectEstados">
+                        
+                        
+                    </div>
+                     
+                     <div id="selectCidades">
+                        <select>
+                            <option></option>
+                        </select>
+                    </div>
+            
+            
+                    <div>
+                        <input type="submit" name="uploadClientes" value="Upload Image" />
+                    </div>
+                    <div>
+                        <a href="percorrer.php">Listar cidades</a>
+                    </div>
+
+
+        
+
+</form>
+
+
+<script type="text/javascript">
+
+   
+
+    if(window.XMLHttpRequest){
+        xmlhttpEstados = new XMLHttpRequest();
+        xmlhttpCidades = new XMLHttpRequest();
+       
+       
+
+    }
+
+    xmlhttpEstados.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               
+                var classes = document.querySelectorAll('.selectEstados');
+                
+                for (var i = 0; i < classes.length; i++) {
+                   
+                    classes[i].innerHTML = this.responseText;
+                }
+
+                /*
+                document.querySelector('.selectEstados').innerHTML = this.responseText;
+                console.log('executei innerHTML');
+               */
+                
+            }
+        }
+
+     xmlhttpCidades.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               
+                var classes = document.querySelectorAll('#selectCidades');
+               
+                for (var i = 0; i < classes.length; i++) {
+                   
+                    classes[i].innerHTML = this.responseText;
+                }
+
+                /*
+                document.querySelector('.selectEstados').innerHTML = this.responseText;
+                console.log('executei innerHTML');
+               */
+                
+            }
+    }
+
+    
+
+    xmlhttpEstados.open("GET","retornarEstados.php",true);
+    xmlhttpEstados.send();
+
+
+
+   
+
+    
+
+    xmlhttpCidades.open("GET","retornaCidades.php",true);
+    xmlhttpCidades.send();
+
+ 
+    
+   
+
+    
+
+</script>
 
 </body>
 </html>
