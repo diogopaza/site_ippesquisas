@@ -124,6 +124,10 @@ h6 {
               <a class="nav-link" id="linkContatos" data-toggle="modal" data-target="#modalSubscriptionForm">Login</a>
               
             </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="">Cadastrar</a>
+              
+            </li>
              
           
           
@@ -168,7 +172,7 @@ h6 {
   <!-- Main navigation -->
 <main class="mt-5">
   
- <div class="container">
+ <div class="container ">
   <section class="text-center">
      <div class="row" >
           <div class="col-md-4 sm-12"  id="sobre">
@@ -430,5 +434,29 @@ h6 {
        
 
       })
+
+      function cadastrar(){
+        alert('cliquei');
+        if(window.XMLHttpRequest){
+        xmlhttpCadastrar = new XMLHttpRequest();    
+          
+        }
+
+    xmlhttpCadastrar.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               
+              var divView = document.querySelector('.view');
+               divView.innerHTML = this.responseText;
+               divView.style.backgroundImage = "url('')";
+               divView.style.backgroundColor = '#F6F4F1';
+                
+            }
+        }
+
+
+        xmlhttpCadastrar.open("GET","cadastrar.php",true);
+        xmlhttpCadastrar.send();
+
+      }
 
     </script>

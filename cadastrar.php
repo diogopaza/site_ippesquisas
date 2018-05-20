@@ -101,13 +101,17 @@ if(isset($_POST['uploadClientes']) ){
 
         $nomeCliente = $_POST['nome_cliente'];
         $telefoneCliente = $_POST['telefone_cliente'];
-        $nomeCidade =  $_POST['select_cidades'];
-
+        $cidadeCliente =  $_POST['select_cidades'];
+        $categoriaCliente =  $_POST['categoria_cliente'];
+        $descricaoCliente = $_POST['text_descricao'];
         echo "Nome: ".$nomeCliente."<br>";
         echo "Telefone: ".$telefoneCliente."<br>";
-        echo "Cidade: ".$nomeCidade;
+        echo "Cidade: ".$cidadeCliente."<br>";
+        echo "Categoria: ".$categoriaCliente."<br>";
+        echo "Descrição: ".$descricaoCliente."<br>";
 
-        
+
+    
         $stmt = $conexao->prepare("INSERT INTO cidades(nome_cidade,bandeira_cidade,estado) VALUES(:nome, :bandeira,:estado)");
 
         $stmt->bindParam(':nome', $nome_cidade);
@@ -119,11 +123,12 @@ if(isset($_POST['uploadClientes']) ){
 
 
 
-        if(move_uploaded_file($_FILES['image']['tmp_name'], $target)){
+    if(move_uploaded_file($_FILES['image']['tmp_name'], $target)){
             $msg = "imagem uploaded suessfully";
         }else{
             $msg = "There was a problem uploading image";
         }
+    
 
     }
 
@@ -198,8 +203,8 @@ if(isset($_POST['uploadClientes']) ){
 <body>
 
     <form enctype="multipart/form-data" action="cadastrar.php" method="POST" class="formEstados">
-
-          <h3>Cadastrar Estado</h3>
+        <div class="formEstados">
+             <h3>Cadastrar Estado</h3>
         <div>
             <input type="file" name="image" multiple >
         </div>
@@ -214,6 +219,11 @@ if(isset($_POST['uploadClientes']) ){
         <div>
             <a href="percorrer.php">Listar cursos</a>
         </div>
+ 
+
+        </div>
+       
+
 
 </form>
 
@@ -258,8 +268,11 @@ if(isset($_POST['uploadClientes']) ){
                      <div>
                         <input name="telefone_cliente" type="text" placeholder="Digite o telefone do  cliente">
                     </div>
+                     <div>
+                        <input name="categoria_cliente" type="text" placeholder="Digite a categoria ">
+                    </div>
                     <div>
-                        <textarea rows="10" cols="6"></textarea>
+                        <textarea rows="10" cols="6" name="text_descricao"></textarea>
                     </div>
                      
                      

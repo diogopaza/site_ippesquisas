@@ -13,7 +13,7 @@ require('conectar.php');
             echo "<select name='select_cidades'>
             		<option ></option>";
            	foreach ($result as $row) {
-           		echo " <option value='".$row['id_cidade'] ."'>".$row['nome_cidade']."</option>"; 
+           		echo " <option value='".$row['nome_cidade'] ."'>".$row['nome_cidade']."</option>"; 
            	}
            	echo "</select>";
 
