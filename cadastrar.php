@@ -94,7 +94,10 @@ if(isset($_POST['uploadClientes']) ){
 
 
     function gravarCliente(){
-       $banco = new Conectar();
+       try{
+
+
+        $banco = new Conectar();
         $conexao =  $banco->conectarDB();
         
        
@@ -112,43 +115,43 @@ if(isset($_POST['uploadClientes']) ){
 
 
     
-        $stmt = $conexao->prepare("INSERT INTO cidades(nome_cidade,bandeira_cidade,estado) VALUES(:nome, :bandeira,:estado)");
+        $stmt = $conexao->prepare("INSERT INTO cliente(nome_cliente,cidade_cliente,descricao_cliente,telefone,categoria_cliente) VALUES(:nome, :cidade,:descricao,:telefone,:categoria)");
 
-        $stmt->bindParam(':nome', $nome_cidade);
-        $stmt->bindParam(':bandeira',$bandeira);
-       
-        $stmt->bindParam(':estado',$estado);
+        $stmt->bindParam(':nome', $nomeCliente);
+        $stmt->bindParam(':cidade',$cidadeCliente);
+        $stmt->bindParam(':descricao',$descricaoCliente);
+        $stmt->bindParam(':telefone',$telefoneCliente);
+        $stmt->bindParam(':categoria',$categoriaCliente);
         $stmt->execute();
-       
+        $idCliente = $conexao->lastInsertId();
 
+       }catch(PDOException $e){
 
+        echo "Erro ao gravar no banco ".$e->getMessage();
 
-    if(move_uploaded_file($_FILES['image']['tmp_name'], $target)){
-            $msg = "imagem uploaded suessfully";
-        }else{
-            $msg = "There was a problem uploading image";
-        }
-    
+       }
+      
+        gravarImagem($idCliente);
+
 
     }
 
-    function gravarImagem(){
+    function gravarImagem($id){
         $banco = new Conectar();
         $conexao =  $banco->conectarDB();
         for ($i=0; $i<count( $_FILES["image"]["name"] ); $i++) { 
           
             $local = 'images/'.$_FILES['image']['name'][$i];
             $tmpname = $_FILES['image']['tmp_name'][$i];
-            echo $local."<br>";
-            echo $tmpname."<br>";
+            $id_cliente = $id;
 
              if(move_uploaded_file($tmpname, $local)){
                         
                     try{
-                        $stmt = $conexao->prepare("INSERT INTO img(local_img) VALUES(:local)");
+                        $stmt = $conexao->prepare("INSERT INTO img(local_img,id_cliente) VALUES(:local,:id)");
                       
                         $stmt->bindParam(':local', $local);
-                       
+                         $stmt->bindParam(':id', $id_cliente);
                         $stmt->execute();
                         echo "Último id inserido: ".$conexao->lastInsertId();
 

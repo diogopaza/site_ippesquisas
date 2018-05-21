@@ -121,7 +121,7 @@
 
     }
 
-    function retornarClientes(){
+    function retornarClientes(elemento){
       if(window.XMLHttpRequest){
            xmlhttp = new XMLHttpRequest();
         }
@@ -135,7 +135,7 @@
             }
         }
 
-         xmlhttp.open("GET","retornaClientes.php",true);
+         xmlhttp.open("GET","retornarClientes.php?q="+elemento.id,true);
          xmlhttp.send();
 
       
