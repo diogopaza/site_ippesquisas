@@ -100,36 +100,65 @@ if(isset($_POST['uploadClientes']) ){
         $banco = new Conectar();
         $conexao =  $banco->conectarDB();
         
-       
+        $localImgPrincipal = 'images/'.$_FILES['image']['name'][0];
+        $tmpnameImgPrincipal = $_FILES['image']['tmp_name'][0];
+        echo '<br>local gravar imagem principal: '.$localImgPrincipal.'<br>';
+        echo 'local temporario '.$tmpnameImgPrincipal.'<br>';
+
+
 
         $nomeCliente = $_POST['nome_cliente'];
         $telefoneCliente = $_POST['telefone_cliente'];
         $cidadeCliente =  $_POST['select_cidades'];
         $categoriaCliente =  $_POST['categoria_cliente'];
         $descricaoCliente = $_POST['text_descricao'];
+        
         echo "Nome: ".$nomeCliente."<br>";
         echo "Telefone: ".$telefoneCliente."<br>";
         echo "Cidade: ".$cidadeCliente."<br>";
         echo "Categoria: ".$categoriaCliente."<br>";
         echo "Descrição: ".$descricaoCliente."<br>";
 
+        if(move_uploaded_file($tmpnameImgPrincipal, $localImgPrincipal)){
+            echo 'imagem principal gravada';
+             
 
+
+        }
     
-        $stmt = $conexao->prepare("INSERT INTO cliente(nome_cliente,cidade_cliente,descricao_cliente,telefone,categoria_cliente) VALUES(:nome, :cidade,:descricao,:telefone,:categoria)");
+        $stmt = $conexao->prepare("INSERT INTO cliente(nome_cliente,cidade_cliente,descricao_cliente,telefone,categoria_cliente,img_principal) VALUES(:nome, :cidade,:descricao,:telefone,:categoria,:img)");
 
         $stmt->bindParam(':nome', $nomeCliente);
         $stmt->bindParam(':cidade',$cidadeCliente);
         $stmt->bindParam(':descricao',$descricaoCliente);
         $stmt->bindParam(':telefone',$telefoneCliente);
         $stmt->bindParam(':categoria',$categoriaCliente);
+        $stmt->bindParam(':img',$localImgPrincipal);
         $stmt->execute();
         $idCliente = $conexao->lastInsertId();
 
+        $stmtImagem = $conexao->prepare("INSERT INTO img(local_img,id_cliente) VALUES(:local,:id)");
+                          
+            $stmtImagem->bindParam(':local', $localImgPrincipal);
+            $stmtImagem->bindParam(':id', $idCliente);
+            $stmtImagem->execute();
+
+       
        }catch(PDOException $e){
 
         echo "Erro ao gravar no banco ".$e->getMessage();
 
        }
+
+
+     
+           
+           
+
+           
+
+
+
       
         gravarImagem($idCliente);
 
@@ -139,7 +168,7 @@ if(isset($_POST['uploadClientes']) ){
     function gravarImagem($id){
         $banco = new Conectar();
         $conexao =  $banco->conectarDB();
-        for ($i=0; $i<count( $_FILES["image"]["name"] ); $i++) { 
+        for ($i=1; $i<count( $_FILES["image"]["name"] ); $i++) { 
           
             $local = 'images/'.$_FILES['image']['name'][$i];
             $tmpname = $_FILES['image']['tmp_name'][$i];
@@ -151,7 +180,7 @@ if(isset($_POST['uploadClientes']) ){
                         $stmt = $conexao->prepare("INSERT INTO img(local_img,id_cliente) VALUES(:local,:id)");
                       
                         $stmt->bindParam(':local', $local);
-                         $stmt->bindParam(':id', $id_cliente);
+                        $stmt->bindParam(':id', $id_cliente);
                         $stmt->execute();
                         echo "Último id inserido: ".$conexao->lastInsertId();
 
@@ -205,7 +234,7 @@ if(isset($_POST['uploadClientes']) ){
 </head>
 <body>
 
-    <form enctype="multipart/form-data" action="cadastrar.php" method="POST" class="formEstados">
+    <form enctype="multipart/form-data" action="cadastrar2.php" method="POST" class="formEstados">
         <div class="formEstados">
              <h3>Cadastrar Estado</h3>
         <div>
@@ -231,7 +260,7 @@ if(isset($_POST['uploadClientes']) ){
 </form>
 
 
-    <form enctype="multipart/form-data" action="cadastrar.php" method="POST" >
+    <form enctype="multipart/form-data" action="cadastrar2.php" method="POST" >
         <div id="formCidades">
             <h3>Cadastrar Cidade</h3>
                     <div>
@@ -259,7 +288,7 @@ if(isset($_POST['uploadClientes']) ){
 
 </form>
 
-<form enctype="multipart/form-data" action="cadastrar.php" method="POST" id="estiloClientes">
+<form enctype="multipart/form-data" action="cadastrar2.php" method="POST" id="estiloClientes">
       
             <h3>Cadastrar Cliente</h3>
                     <div>

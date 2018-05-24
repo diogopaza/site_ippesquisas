@@ -18,7 +18,7 @@
                     $result = $conexao->query($sql);
                     foreach ($result as $row) {
                         echo "
-                            <div class='col  m4 s12'>
+                            <div class='col  m6 s12'>
                                 <div class='card hoverable ' data-wow-delay='1s'>
                                     <div class='card-image'>
                            
@@ -27,8 +27,8 @@
                                        
                                     
                                     </div>
-                                <div class='card-action wow '>
-                                <a  class='card-title linkEstados' onclick='retornarClientes(this)' id='".$row['id_cidade']."'>".$row['nome_cidade']."</a>
+                                <div class='card-title'>
+                                <a href='javascript:void(0);' class='card-title linkEstados' onclick='retornarClientes(this)' id='".$row['id_cidade']."'><h4>".$row['nome_cidade']."</h4></a>
                                 
                             </div>
                             

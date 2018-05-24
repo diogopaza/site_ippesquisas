@@ -124,10 +124,7 @@ h6 {
               <a class="nav-link" id="linkContatos" data-toggle="modal" data-target="#modalSubscriptionForm">Login</a>
               
             </li>
-            <li class="nav-item">
-              <a class="nav-link" onclick="">Cadastrar</a>
-              
-            </li>
+            
              
           
           
@@ -431,6 +428,10 @@ h6 {
          $("#linkContatos").click(function(){
            $("body,html").animate({scrollTop: alturaDocumento * 1.5  }, 800)
         })
+
+
+       
+
        
 
       })
