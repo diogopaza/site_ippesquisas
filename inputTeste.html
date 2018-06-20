@@ -1,0 +1,22 @@
+<input value="valor original 1" >
+<input value="valor original 2" >
+<input value="valor original 3" >
+
+
+<script type="text/javascript">
+	
+var inputs = document.querySelectorAll('input')
+console.log(inputs)
+
+function criaListener(indice){
+	return function(){
+		console.log(this.value)
+		this.value = inputs[indice].value
+	}
+}
+
+for(var i=0; i< inputs.length;i++){
+	inputs[i].onblur = criaListener(i)
+}
+
+</script>

@@ -51,13 +51,9 @@
 </header>
 
     <main>
-       
+      
 
-        <div class="carousel carousel-slider">
-                  <a class="carousel-item" href="#one!"><img src="img/logo.png"></a>
-                  <a class="carousel-item" href="#two!"><img src="img/logo.png"></a>
-                  dasdasdasdasdsa
-             </div>
+       
 
 
 
@@ -117,6 +113,27 @@
     </main>
 <script type="text/javascript">
     
+  function mostrar(){
+    document.getElementById("esconder").style.display = "none";
+  }
+  function mostrar2(){
+    document.getElementById("esconder").style.display = "initial";
+
+   
+ 
+
+  }
+
+
+ $(document).ready(function(){
+     $('.carousel.carousel-slider').carousel({
+        fullWidth: true,
+        indicators: true
+      });
+  
+  });
+
+
 
     function retornarCidades(elemento){
         console.log('id do estado'+elemento.id)

@@ -93,125 +93,8 @@ if(isset($_POST['uploadClientes']) ){
    
 
 
-    function gravarCliente(){
-       try{
-
-
-        $banco = new Conectar();
-        $conexao =  $banco->conectarDB();
-        
-        $localImgPrincipal = 'images/'.$_FILES['image']['name'][0];
-        $tmpnameImgPrincipal = $_FILES['image']['tmp_name'][0];
-        echo '<br>local gravar imagem principal: '.$localImgPrincipal.'<br>';
-        echo 'local temporario '.$tmpnameImgPrincipal.'<br>';
-
-
-
-        $nomeCliente = $_POST['nome_cliente'];
-        $telefoneCliente = $_POST['telefone_cliente'];
-        $cidadeCliente =  $_POST['select_cidades'];
-        $categoriaCliente =  $_POST['categoria_cliente'];
-        $descricaoCliente = $_POST['text_descricao'];
-        
-        echo "Nome: ".$nomeCliente."<br>";
-        echo "Telefone: ".$telefoneCliente."<br>";
-        echo "Cidade: ".$cidadeCliente."<br>";
-        echo "Categoria: ".$categoriaCliente."<br>";
-        echo "Descrição: ".$descricaoCliente."<br>";
-
-        if(move_uploaded_file($tmpnameImgPrincipal, $localImgPrincipal)){
-            echo 'imagem principal gravada';
-             
-
-
-        }
-    
-        $stmt = $conexao->prepare("INSERT INTO cliente(nome_cliente,cidade_cliente,descricao_cliente,telefone,categoria_cliente,img_principal) VALUES(:nome, :cidade,:descricao,:telefone,:categoria,:img)");
-
-        $stmt->bindParam(':nome', $nomeCliente);
-        $stmt->bindParam(':cidade',$cidadeCliente);
-        $stmt->bindParam(':descricao',$descricaoCliente);
-        $stmt->bindParam(':telefone',$telefoneCliente);
-        $stmt->bindParam(':categoria',$categoriaCliente);
-        $stmt->bindParam(':img',$localImgPrincipal);
-        $stmt->execute();
-        $idCliente = $conexao->lastInsertId();
-
-        $stmtImagem = $conexao->prepare("INSERT INTO img(local_img,id_cliente) VALUES(:local,:id)");
-                          
-            $stmtImagem->bindParam(':local', $localImgPrincipal);
-            $stmtImagem->bindParam(':id', $idCliente);
-            $stmtImagem->execute();
-
-       
-       }catch(PDOException $e){
-
-        echo "Erro ao gravar no banco ".$e->getMessage();
-
-       }
-
-
-     
-           
-           
-
-           
-
-
-
-      
-        gravarImagem($idCliente);
-
-
-    }
-
-    function gravarImagem($id){
-        $banco = new Conectar();
-        $conexao =  $banco->conectarDB();
-        for ($i=1; $i<count( $_FILES["image"]["name"] ); $i++) { 
-          
-            $local = 'images/'.$_FILES['image']['name'][$i];
-            $tmpname = $_FILES['image']['tmp_name'][$i];
-            $id_cliente = $id;
-
-             if(move_uploaded_file($tmpname, $local)){
-                        
-                    try{
-                        $stmt = $conexao->prepare("INSERT INTO img(local_img,id_cliente) VALUES(:local,:id)");
-                      
-                        $stmt->bindParam(':local', $local);
-                        $stmt->bindParam(':id', $id_cliente);
-                        $stmt->execute();
-                        echo "Último id inserido: ".$conexao->lastInsertId();
-
-
-                    }
-                    catch(PDOException $e){
-
-                         echo 'Não foi possível gravar no banco de dados';
-                    }            
-                    
-                    
-
-                    }else{
-                        echo 'Não foi possível gravar a imagem na pasta selecionada';
-                    }
-
-
-        }
-
-        
-            
-               
-       
-        
-    }
-
-    gravarCliente();
-
-    
-
-  
+   
+   gravarCliente();  
    
   
 
@@ -230,7 +113,72 @@ if(isset($_POST['uploadClientes']) ){
 <head>
     <title></title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style type="text/css">
+        
+        img {
+        height: 75px;
+        border: 1px solid #000;
+        margin: 10px 15px 0 0 ;
+
+        }
+
+        ul{
+
+            list-style-type: none;
+
+        }
+
+
+
+
+
+
+        li{
+            display: inline;
+        }
+
+
+        .formEstados {
+            border:solid 1px black; 
+            width: 50%;
+            margin: 25px auto;
+        }
+
+        .divClientes{
+            border:solid 1px black; 
+            width: 50%;
+            margin: 25px auto;
+            
+        }
+        .divClientesDentro{
+
+            margin: 10px auto;
+            width: 50%;
+        }
+
+
+        #formCidades{
+            border: solid 1px black;
+            width: 50%;
+            margin: 25px auto;
+        }
+
+        #estiloClientes{
+            border: solid 1px black;
+            width: 50%;
+            margin: 25px auto;
+        }
+
+        .imgTeste{
+        width: 75px;
+        height: 75px;
+        border: 1px solid #000;
+       
+        }
+
+
+
+</style>
 </head>
 <body>
 
@@ -241,7 +189,7 @@ if(isset($_POST['uploadClientes']) ){
             <input type="file" name="image" multiple >
         </div>
         <div>
-            <input name="nomeEstado" type="text" placeholder="Digite o nome do estado"></input>
+            <input name="nomeEstado" type="text" placeholder="Digite o nome do estado" required></input>
         </div>
 
 
@@ -267,7 +215,7 @@ if(isset($_POST['uploadClientes']) ){
                         <input type="file" name="image" multiple >
                     </div>
                     <div>
-                        <input name="nome_cidade" type="text" placeholder="Digite o nome da cidade">
+                        <input name="nome_cidade" type="text" placeholder="Digite o nome da cidade" required>
                     </div>
                      
                      <div class="selectEstados">
@@ -287,24 +235,34 @@ if(isset($_POST['uploadClientes']) ){
         
 
 </form>
+ <form enctype="multipart/form-data" action="" method="post" id=formClientes>
+<div class="divClientes">
+    <div class="divClientesDentro">
+         <h3>Cadastrar Cliente</h3>
+           
+            <div>
+                <ul id="listaImg">
 
-<form enctype="multipart/form-data" action="cadastrar2.php" method="POST" id="estiloClientes">
-      
-            <h3>Cadastrar Cliente</h3>
+                  
+                </ul>
+            
+                    
+                </div>
+            </div>
                     <div>
-                        <input type="file" name="image[]" multiple >
+                        <input type="file" name="image[]" multiple id="inputImage">
                     </div>
                     <div>
-                        <input name="nome_cliente" type="text" placeholder="Digite o nome do cliente">
+                        <input id='nome_cliente' name="nome_cliente" type="text" placeholder="Digite o nome do cliente" required>
                     </div>
                      <div>
-                        <input name="telefone_cliente" type="text" placeholder="Digite o telefone do  cliente">
+                        <input id='telefone_cliente' name="telefone_cliente" type="text" required placeholder="Digite o telefone do  cliente">
                     </div>
                      <div>
-                        <input name="categoria_cliente" type="text" placeholder="Digite a categoria ">
+                        <input id='categoria_cliente' name="categoria_cliente" type="text" required placeholder="Digite a categoria ">
                     </div>
                     <div>
-                        <textarea rows="10" cols="6" name="text_descricao"></textarea>
+                        <textarea rows="10" cols="6" name="text_descricao" required id="textarea_cliente"></textarea>
                     </div>
                      
                      
@@ -312,33 +270,47 @@ if(isset($_POST['uploadClientes']) ){
                        
                     </div>
             
-            
-                    <div>
-                        <input type="submit" name="uploadClientes" value="Upload Image" />
-                    </div>
-                    <div>
-                        <a href="percorrer.php">Listar cidades</a>
+                    
+                    <div id='divteste'>
+                       <button>Gravar</button>
+
                     </div>
 
+    </div>
+    
+
+</div>
+      
+</form>         
+                    
 
         
 
-</form>
+
 
 
 <script type="text/javascript">
 
-   
+    var imgPrincipal;
+    var cont = 0;
+    var files;
+    var meucontador = 0;
+    var myIdBackup='';
 
     if(window.XMLHttpRequest){
         xmlhttpEstados = new XMLHttpRequest();
         xmlhttpCidades = new XMLHttpRequest();
        
        
+       
+       
 
     }
 
+   
+
     xmlhttpEstados.onreadystatechange = function() {
+       
             if (this.readyState == 4 && this.status == 200) {
                
                 var classes = document.querySelectorAll('.selectEstados');
@@ -374,21 +346,176 @@ if(isset($_POST['uploadClientes']) ){
             }
     }
 
+
+       
+        function drag(evt){
+           
+
+            
+            
+            evt.dataTransfer.setData('text',evt.target.id);
+            evt.dataTransfer.setData('name',evt.target.name);
+
+            
+            
+        }
+
+        function over(evt){
+            evt.preventDefault();
+            
+        }
+
+     
+
+
+       
+      
+
+        function drop(evt){
+            
+            name = evt.dataTransfer.getData('name')
+            data = evt.dataTransfer.getData('text')
+            myElement = document.getElementById(data)
+            
+            
+            
+            minhaImg = evt.target.id;
+            minhaImgId = document.getElementById(minhaImg)
+           
+            copiaName = minhaImgId.name
+            minhaImgId.name = name
+            myElement.name = copiaName
+            copiaImg = minhaImgId.src;
+            minhaImgId.src = myElement.src
+           
+           
+            myElement.src = copiaImg
+
+            imgPrincipal =   minhaImgId.name
+           
+          
+            
+
+         }
+
+            
+           
+           
     
+
+
+       
+         myFiles = ''
+     
+   
+
+   function retornaImagens(evt){
+        
+        cont = 0
+          files = evt.target.files
+         
+          imgPrincipal = files[0].name
+       
+        if( files.length > 0){
+
+        document.getElementById('listaImg').innerHTML = ""
+        
+       
+
+        
+
+
+
+        for (var i = 0; i <  files.length; i++) {
+                
+                   
+                    
+                    
+                    reader = new FileReader()
+                   
+                    //reader._NAME = files[cont].name;
+                    //console.log('files: ' + files[cont].name)
+
+                    reader.onload = (evt) =>{
+
+                    dataURL = evt.target.result        
+                    lista  = document.createElement("li")            
+                    imagem = document.createElement( "img" )
+                    imagem.setAttribute("class","img")
+                    imagem.setAttribute("name", files[cont].name)
+                    console.log( files[cont].name )
+                    imagem.setAttribute("draggable",'true')
+                    imagem.setAttribute("ondragstart",'drag(event)' )
+                    imagem.setAttribute("ondragover",'over(event)' )
+                    imagem.setAttribute("ondrop",'drop(event)' )           
+                    imagem.src = dataURL
+                    imagem.id = cont
+                    
+                    lista.appendChild(imagem)
+                    listaImg.appendChild(lista)
+                    cont++
+                    
+                   
+                   
+                }
+                  reader.readAsDataURL( files[i] )
+
+               
+
+             }
+           
+           
+     
+        }
+
+      
+        
+        }      
+
+
+
+
+
+    
+
+
 
     xmlhttpEstados.open("GET","retornarEstados.php",true);
     xmlhttpEstados.send();
-
-
-
-   
-
-    
-
     xmlhttpCidades.open("GET","retornaCidades.php",true);
     xmlhttpCidades.send();
 
- 
+    var request = new XMLHttpRequest()
+    meuForm = document.querySelector('#formClientes');
+    meuForm.addEventListener('submit', function( e ){
+        
+        e.preventDefault();
+        console.log(imgPrincipal)
+       var formData = new FormData(meuForm);
+       formData.append('img', imgPrincipal);
+       request.open('post',"gravaCliente.php?q=" + imgPrincipal, true)
+       request.send(formData)
+
+       document.getElementById('nome_cliente').value = '';
+       document.getElementById('telefone_cliente').value = '';
+       document.getElementById('categoria_cliente').value = '';
+       meuText = document.getElementById('textarea_cliente').value = '';
+       document.getElementById('select_cidades').value = '';
+       document.getElementById('inputImage').value = '';
+       document.getElementById('inputImage').files = '';
+       
+       
+       
+       
+     
+    })
+
+
+    document.getElementById('inputImage').addEventListener('change', retornaImagens);
+
+
+    
+   
     
    
 

@@ -16,7 +16,7 @@
                     foreach ($result as $row) {
                     
                        echo "
-                            <div class='col  m4 s12'>
+                            <div class='col  m3 s12'>
                                 <div class='card hoverable ' data-wow-delay='1s'>
                                     <div class='card-image'>
                            
@@ -32,7 +32,11 @@
                             
                         </div>
                         
-                    </div>"
+                    </div>
+
+                    
+
+                    "
                     
 
 
