@@ -22,8 +22,8 @@
                                        
                                     
                                     </div>
-                                <div class='card-content '>
-                                <a href='javascript:void(0);' class='card-title linkEstados' onclick='retornarClientesFinal(this)' id='".$row['id_cliente']."'><h5>".$row['nome_cliente']."</h5></a>
+                                <div class='card-title '>
+                                <a href='javascript:void(0);' class='card-title linkEstados' onclick='retornarClientesFinal(this)' id='".$row['id_cliente']."'><h4>".$row['nome_cliente']."</h4></a>
                                 
                             </div>
                             

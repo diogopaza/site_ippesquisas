@@ -176,6 +176,10 @@ if(isset($_POST['uploadClientes']) ){
        
         }
 
+        #spanPrincipal{
+           
+        }
+
 
 
 </style>
@@ -240,17 +244,17 @@ if(isset($_POST['uploadClientes']) ){
     <div class="divClientesDentro">
          <h3>Cadastrar Cliente</h3>
            
-            <div>
-                <ul id="listaImg">
-
-                  
-                </ul>
-            
-                    
-                </div>
+           
             </div>
                     <div>
+                        <input type="file" name="imagePrincipal"  id="inputImagePrincipal">
+                        <span id='spanPrincipal'></span>
+                    </div>
+                    <div>
                         <input type="file" name="image[]" multiple id="inputImage">
+                         <div>
+                            <ul id="listaImg"></ul>  
+                         </div>          
                     </div>
                     <div>
                         <input id='nome_cliente' name="nome_cliente" type="text" placeholder="Digite o nome do cliente" required>
@@ -414,14 +418,39 @@ if(isset($_POST['uploadClientes']) ){
          myFiles = ''
      
    
+    function retornaImagensPrincipal(evt){
+        files = evt.target.files
+        reader = new FileReader()
+        console.log(files)
 
-   async function retornaImagens(evt){
+        
+        reader.onload = (evt) =>{
+                    
+                    dataURL = evt.target.result 
+
+                    console.log(myFiles)
+                    novaImg = document.createElement('img')
+                    novaImg.src = dataURL
+                     document.getElementById('spanPrincipal').appendChild(novaImg)   
+                   
+                    }
+
+                    reader.readAsDataURL( files[0] )
+
+        
+        
+       
+    }
+
+
+
+
+    function retornaImagens(evt){
         
         cont = 0
        
         files = evt.target.files
-        console.log(evt.target.files[0])
-          imgPrincipal = files[0].name
+       
           
         if( files.length > 0){
 
@@ -495,7 +524,7 @@ if(isset($_POST['uploadClientes']) ){
                    
                    
              }   
-                await reader.readAsDataURL( files[i] )
+                reader.readAsDataURL( files[i] )
 
 
          }          
@@ -528,7 +557,7 @@ if(isset($_POST['uploadClientes']) ){
         console.log(imgPrincipal)
        var formData = new FormData(meuForm);
        formData.append('img', imgPrincipal);
-       request.open('post',"gravaCliente.php?q=" + imgPrincipal, true)
+       request.open('post',"gravaCliente.php", true)
        request.send(formData)
 
         document.getElementById('nome_cliente').value = '';
@@ -545,7 +574,7 @@ if(isset($_POST['uploadClientes']) ){
      
     })
 
-
+     document.getElementById('inputImagePrincipal').addEventListener('change', retornaImagensPrincipal);
     document.getElementById('inputImage').addEventListener('change', retornaImagens);
 
 

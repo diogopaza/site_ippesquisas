@@ -7,39 +7,20 @@
 
     function gravarCliente(){
       
-      	 $imagemGET = $_GET['q'];
-         $myfiles =  $_FILES['image']['name'] ;
+      	
+         $myfiles =  $_FILES['imagePrincipal']['name'] ;
+       
 
-
-
+     
        try{
 
 
         $banco = new Conectar();
-        $conexao =  $banco->conectarDB();
-
-        for($i=0; $i< count( $myfiles ); $i++){
-    	
-
-    		if( $_FILES['image']['name'][$i] == $imagemGET ){
-    		
-	    		
-	    		$localImgPrincipal = 'images/' . $_FILES['image']['name'][$i];
-	    	
-	    		$tmpnameImgPrincipal = $_FILES['image']['tmp_name'][$i];
-	    		
-    		}
-
-    	}
-        
-        
-     
-        //echo 'nome d imagem ' . $_FILES['image']['name'][0];
-        //echo '<br>local gravar imagem principal: '.$localImgPrincipal.'<br>';
-        //echo 'local temporario '.$tmpnameImgPrincipal.'<br>';
-
-
-
+        $conexao =  $banco->conectarDB();	    		
+	    $localImgPrincipal = 'images/' . $_FILES['imagePrincipal']['name']; 
+	    $tmpnameImgPrincipal = $_FILES['imagePrincipal']['tmp_name']; 
+         
+	 
         $nomeCliente = $_POST['nome_cliente'];
         $telefoneCliente = $_POST['telefone_cliente'];
         $cidadeCliente =  $_POST['select_cidades'];
@@ -117,6 +98,8 @@
                     }else{
                         echo 'Não foi possível gravar a imagem na pasta selecionada';
                     }
+
+                
 
 
         }
