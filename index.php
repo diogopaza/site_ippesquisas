@@ -401,8 +401,16 @@ h6 {
   logar = document.getElementById('btnLogar')
     
   logar.addEventListener('click',function(){
-        alert('loguei')
-      })
+       
+         fetch('logar.php')
+        .then( response => response.text())
+        .then(data =>{
+          console.log(data)
+        })
+
+    })
+
+      
 </script>
 <script>
 
