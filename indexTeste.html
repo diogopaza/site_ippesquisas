@@ -342,18 +342,18 @@ h6 {
                 <div class="md-form mb-5">
                     <i class="fa fa-user prefix grey-text"></i>
                     <input type="text" id="form3" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form3">Usuário</label>
+                    <label data-error="wrong" data-success="right" for="form3">Your name</label>
                 </div>
 
                 <div class="md-form mb-4">
                     <i class="fa fa-envelope prefix grey-text"></i>
                     <input type="email" id="form2" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form2">Senha</label>
+                    <label data-error="wrong" data-success="right" for="form2">Your email</label>
                 </div>
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-indigo">Enviar <i class="fa fa-paper-plane-o ml-1"></i></button>
+                <button class="btn btn-indigo">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
             </div>
         </div>
     </div>
@@ -436,6 +436,28 @@ h6 {
 
       })
 
-      
+      function cadastrar(){
+        alert('cliquei');
+        if(window.XMLHttpRequest){
+        xmlhttpCadastrar = new XMLHttpRequest();    
+          
+        }
+
+    xmlhttpCadastrar.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               
+              var divView = document.querySelector('.view');
+               divView.innerHTML = this.responseText;
+               divView.style.backgroundImage = "url('')";
+               divView.style.backgroundColor = '#F6F4F1';
+                
+            }
+        }
+
+
+        xmlhttpCadastrar.open("GET","cadastrar.php",true);
+        xmlhttpCadastrar.send();
+
+      }
 
     </script>

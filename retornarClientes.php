@@ -13,7 +13,7 @@
                     $result = $conexao->query($sql);
                     foreach ($result as $row) {
                         echo "
-                            <div class='col  m4 s12'>
+                            <div class='col  m6 s12'>
                                 <div class='card hoverable ' data-wow-delay='1s'>
                                     <div class='card-image'>
                            
@@ -23,7 +23,7 @@
                                     
                                     </div>
                                 <div class='card-title '>
-                                <a href='javascript:void(0);' class='card-title linkEstados' onclick='retornarClientesFinal(this)' id='".$row['id_cliente']."'><h4>".$row['nome_cliente']."</h4></a>
+                                <a href='javascript:void(0);' class='card-title linkEstados' onclick='retornarClientesFinal(this)' id='".$row['id_cliente']."'><h4 class='color-h4'>".$row['nome_cliente']."</h4></a>
                                 
                             </div>
                             

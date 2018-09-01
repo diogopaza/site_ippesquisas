@@ -8,9 +8,9 @@
     function gravarCliente(){
       
       	
-         $myfiles =  $_FILES['imagePrincipal']['name'] ;
-       
-
+         $myfiles =  $_FILES['imagePrincipal']['name'];
+         var_dump($myfiles);
+           
      
        try{
 

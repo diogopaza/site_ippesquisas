@@ -186,7 +186,7 @@ if(isset($_POST['uploadClientes']) ){
 </head>
 <body>
 
-    <form enctype="multipart/form-data" action="cadastrar2.php" method="POST" class="formEstados">
+    <form enctype="multipart/form-data" action="cadastrar.php" method="POST" class="formEstados">
         <div class="formEstados">
              <h3>Cadastrar Estado</h3>
         <div>
@@ -200,9 +200,7 @@ if(isset($_POST['uploadClientes']) ){
         <div>
             <input type="submit" name="uploadEstados" value="Upload Image" />
         </div>
-        <div>
-            <a href="percorrer.php">Listar cursos</a>
-        </div>
+       
  
 
         </div>
@@ -212,7 +210,7 @@ if(isset($_POST['uploadClientes']) ){
 </form>
 
 
-    <form enctype="multipart/form-data" action="cadastrar2.php" method="POST" >
+    <form enctype="multipart/form-data" action="cadastrar.php" method="POST" >
         <div id="formCidades">
             <h3>Cadastrar Cidade</h3>
                     <div>
@@ -455,20 +453,10 @@ if(isset($_POST['uploadClientes']) ){
         if( files.length > 0){
 
         document.getElementById('listaImg').innerHTML = ""
-        
-       
 
-        
+        for (var i = 0; i <  files.length; i++) {              
 
-
-
-        for (var i = 0; i <  files.length; i++) {
-                
-                   
-                    
-                if(cont == 0){
-
-                    reader = new FileReader()
+                reader = new FileReader()
                    
                     //reader._NAME = files[cont].name;
                     //console.log('files: ' + files[cont].name)
@@ -476,7 +464,7 @@ if(isset($_POST['uploadClientes']) ){
                 reader.onload = (evt) =>{
                     
                     dataURL = evt.target.result    
-                    console.log(evt.target.result)    
+                   
                     lista  = document.createElement("li")            
                     imagem = document.createElement( "img" )
                     imagem.setAttribute("class","img")
@@ -488,60 +476,21 @@ if(isset($_POST['uploadClientes']) ){
                     imagem.setAttribute("ondrop",'drop(event)' )           
                     imagem.src = dataURL
                     imagem.id = cont
-                   console.log(imagem)
+                  
                     lista.appendChild(imagem)
                     listaImg.appendChild(lista)
                     cont++
-                    }
-                 } else{
-
-                    reader = new FileReader()
-                   
-                    
-
-                reader.onload = (evt) =>{
-
-                    dataURL = evt.target.result        
-                    lista  = document.createElement("li")            
-                    imagemx = document.createElement( "img" )
-                    imagemx.setAttribute("class","img")
-                    imagemx.setAttribute("name", files[cont].name)
-                    
-                    imagemx.setAttribute("draggable",'true')
-                    imagemx.setAttribute("ondragstart",'drag(event)' )
-                    imagemx.setAttribute("ondragover",'over(event)' )
-                    imagemx.setAttribute("ondrop",'drop(event)' )           
-                    imagemx.src = dataURL
-                    imagemx.id = cont
-                    
-                    lista.appendChild(imagem)
-                    listaImg.appendChild(lista)
-
-                    cont++
-
-
-                }                
-                   
+                  
+                 }   
+                   reader.readAsDataURL( files[i] )
                    
              }   
-                reader.readAsDataURL( files[i] )
+                
 
 
          }          
      
-        }   
-    }
-
-      
-        
-      
-
-
-
-
-
-    
-
+    }   
 
 
     xmlhttpEstados.open("GET","retornarEstados.php",true);
@@ -554,12 +503,11 @@ if(isset($_POST['uploadClientes']) ){
     meuForm.addEventListener('submit', function( e ){
         
         e.preventDefault();
-        console.log(imgPrincipal)
+        
        var formData = new FormData(meuForm);
-       formData.append('img', imgPrincipal);
-       request.open('post',"gravaCliente.php", true)
+       //formData.append('img', imgPrincipal);
+       request.open('POST',"gravaCliente.php", true)
        request.send(formData)
-
         document.getElementById('nome_cliente').value = '';
         document.getElementById('telefone_cliente').value = '';
         document.getElementById('categoria_cliente').value = '';

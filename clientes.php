@@ -80,7 +80,7 @@
                                     
                                     </div>
                                 <div class='card-title '>
-                                <a  href='javascript:void(0);' class='card-title linkEstados' onclick='retornarCidades(this)' id='".$row['id']."'><h4>".$row['nome_estado']."</h4></a>
+                                <a  href='javascript:void(0);' class='card-title linkEstados' onclick='retornarCidades(this)' id='".$row['id']."'><h4 class=' teal lighten-2 white-text'>".$row['nome_estado']."</h4></a>
                                 
                             </div>
                             
@@ -136,7 +136,7 @@
 
 
     function retornarCidades(elemento){
-        console.log('id do estado'+elemento.id)
+        
         if(window.XMLHttpRequest){
            xmlhttp = new XMLHttpRequest();
         }
