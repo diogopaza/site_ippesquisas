@@ -124,6 +124,7 @@ h6 {
               <a class="nav-link" id="linkContatos" data-toggle="modal" data-target="#modalSubscriptionForm">Login</a>
               
             </li>
+         
             
              
           
@@ -353,7 +354,7 @@ h6 {
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-indigo">Enviar <i class="fa fa-paper-plane-o ml-1"></i></button>
+                <button class="btn btn-indigo" id="btnLogar">Enviar <i class="fa fa-paper-plane-o ml-1"></i></button>
             </div>
         </div>
     </div>
@@ -395,7 +396,19 @@ h6 {
 
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript">
+  
+  logar = document.getElementById('btnLogar')
+    
+  logar.addEventListener('click',function(){
+        alert('loguei')
+      })
+</script>
 <script>
+
+     
+     
+
       function initMap() {
         var uluru = {lat: -24.952768  , lng:  -53.504419};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -413,6 +426,7 @@ h6 {
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT74NEtkmtAw6OVqcr_PspI0maNf9Z6cw&callback=initMap">
     </script>
     <script type="text/javascript">
+    
       $(document).ready(function(){
 
 
