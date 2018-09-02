@@ -20,8 +20,15 @@
   	logar.addEventListener('click',function(){
        
   		//abre arquivo logar.php e usa promisses para obter o retorno dos dados
+  		//o metódo fetch pode receber como parâmetro um objeto de configuração. É nele onde indicamos o método da requisição,
+  		cabeçalho, corpo, etc
+  		// No body o fetch está enviando os dados do formulário para o servidor e este irá tratar estes dados recebidos via POST.
+         fetch('logar.php', {
+         	method: 'POST',
+         	headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+      		body: 'user=' + usuario + '&password=' + senha
 
-         fetch('logar.php')
+         	})
         .then( response => response.text())
         .then(data =>{
           console.log(data)
