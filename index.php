@@ -403,14 +403,13 @@ h6 {
   logar.addEventListener('click',function(){
        
 
-    usuario = document.getElementById('btnLogar').value
-    senha = document.getElementById('btnLogar').value   
-    console.log(usuario)
-    console.log(senha)
+    usuario = document.getElementById('inputUser').value
+    senha = document.getElementById('inputPassword').value   
+    
     fetch('logar.php', { 
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
-      body: 'user=bar'
+      body: 'user=' + usuario + '&password=' + senha
          })
         .then( response => response.text())
         .then(data =>{
