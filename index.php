@@ -342,13 +342,13 @@ h6 {
             <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                     <i class="fa fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control validate">
+                    <input type="text" id="inputUser" class="form-control validate">
                     <label data-error="wrong" data-success="right" for="form3">Usuário</label>
                 </div>
 
                 <div class="md-form mb-4">
                     <i class="fa fa-envelope prefix grey-text"></i>
-                    <input type="email" id="form2" class="form-control validate">
+                    <input type="password" id="inputPassword" class="form-control validate">
                     <label data-error="wrong" data-success="right" for="form2">Senha</label>
                 </div>
 
@@ -398,11 +398,20 @@ h6 {
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript">
   
-  logar = document.getElementById('btnLogar')
-    
+    logar = document.getElementById('btnLogar')
+   
   logar.addEventListener('click',function(){
        
-         fetch('logar.php')
+
+    usuario = document.getElementById('btnLogar').value
+    senha = document.getElementById('btnLogar').value   
+    console.log(usuario)
+    console.log(senha)
+    fetch('logar.php', { 
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+      body: 'user=bar'
+         })
         .then( response => response.text())
         .then(data =>{
           console.log(data)
